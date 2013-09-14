@@ -66,7 +66,7 @@ public class ThrustPanel extends JPanel {
 	}
 
 	public void setThrust(double angle, double power) {
-		this.angle = angle;
+		this.angle = angle - 90;
 		this.power = power;
 		this.repaint();
 	}	

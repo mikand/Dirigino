@@ -12,15 +12,15 @@ public class DiriginoController {
 	}
 	
 	public void connect() {
-		int attempt = 0;
-		while (attempt < MAX_ATTEMPTS) {
+//		int attempt = 0;
+//		while (attempt < MAX_ATTEMPTS) {
 			try {
-				connection.write("MASTER " + attempt);
+				connection.write("MASTER");
 			}	
 			catch (IOException e) {
 				e.printStackTrace();
 			}	
-		}
+//		}
 	}
 	
 	public void setTilt(double degrees) {

@@ -115,8 +115,10 @@ public class SerialInterface implements SerialPortEventListener {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
 				String inputLine=input.readLine();
-				for(SerialListener s : listeners) {
-					s.readPerformed(inputLine);
+				if (inputLine.length() > 0) {
+					for(SerialListener s : listeners) {
+						s.readPerformed(inputLine);
+					}
 				}
 			} catch (Exception e) {
 				System.err.println(e.toString());
@@ -126,7 +128,11 @@ public class SerialInterface implements SerialPortEventListener {
 	}
 
 	
-	public synchronized void write(String message) throws IOException {
+	public void write(String message) throws IOException {
+		if (!message.endsWith("\n")) {
+			message += "\n";
+		}
+		
 		if (output != null) {
 			output.write(message.getBytes());
 		}
