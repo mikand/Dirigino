@@ -3,8 +3,7 @@ package net.mikand.dirigino.control;
 import java.io.IOException;
 
 public class DiriginoController {
-	
-	private static final int MAX_ATTEMPTS = 5;
+
 	private SerialInterface connection;
 	
 	public DiriginoController(SerialInterface conn) {
@@ -12,15 +11,12 @@ public class DiriginoController {
 	}
 	
 	public void connect() {
-//		int attempt = 0;
-//		while (attempt < MAX_ATTEMPTS) {
-			try {
-				connection.write("MASTER");
-			}	
-			catch (IOException e) {
-				e.printStackTrace();
-			}	
-//		}
+		try {
+			connection.write("MASTER");
+		}	
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void setTilt(double degrees) {
@@ -41,6 +37,25 @@ public class DiriginoController {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void reset() {
+		try {
+			connection.write("RESET");
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public String queryStatus() {
+		try {
+			connection.write("STATUS");
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "to be implemented";
 	}
 
 }

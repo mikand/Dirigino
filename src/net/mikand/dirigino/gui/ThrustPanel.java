@@ -29,14 +29,26 @@ public class ThrustPanel extends JPanel {
 		int w = getWidth();
 		int h = getHeight();
 		
+		int shiftx = 0;
+		int shifty = 0;
+		
+		if (w > h) {
+			shiftx = (w - h) / 2;
+			w = h;
+		}
+		else {
+			shifty = (h - w) / 2;
+			h = w;
+		}
+		
 		g.setColor(Color.GREEN);
-		g.fillOval(0, 0, w, h);
+		g.fillOval(shiftx, shifty, w, h);
 		
 		g.setColor(Color.BLACK);
-		g.fillOval(w/2 - POINT_RADIUS, h/2 - POINT_RADIUS, 2*POINT_RADIUS, 2*POINT_RADIUS);
+		g.fillOval(shiftx + w/2 - POINT_RADIUS, shifty + h/2 - POINT_RADIUS, 2*POINT_RADIUS, 2*POINT_RADIUS);
 		
-		g.drawLine(0, h/2, w, h/2);
-		g.drawLine(w/2, 0, w/2, h);
+		g.drawLine(shiftx, shifty + h/2, shiftx + w, shifty + h/2);
+		g.drawLine(shiftx + w/2, shifty, shiftx + w/2, shifty + h);
 		
 		if (power > 0) {
 			double s = Math.sin(MathUtils.grad2rad(angle));
@@ -48,10 +60,49 @@ public class ThrustPanel extends JPanel {
 			int x = ((int)Math.round(scalex)) + (w/2);
 			int y = ((int)Math.round(-1* scaley)) + (h/2);
 			
-			g.fillOval(x - POINT_RADIUS, y - POINT_RADIUS, 2*POINT_RADIUS, 2*POINT_RADIUS);
+			g.fillOval(shiftx + x - POINT_RADIUS, shifty + y - POINT_RADIUS, 2*POINT_RADIUS, 2*POINT_RADIUS);
+			
+			g.setColor(Color.BLUE);
+			g.drawLine(getCenter().x, getCenter().y, shiftx + x, shifty + y);
 		}
 	}
+	
+	public double getAngleFromPoint(Point p) {
+		Point center = getCenter();
 
+		double a = (double) (p.x - center.x);
+		double b = (double) (-1.0 * (p.y - center.y));
+		double c = center.distance(p);
+
+		double b1 = b / c;
+		double a1 = a / c;
+
+		double angle = Math.acos(a1);
+		if (b1 < 0) {
+			angle = (2 * Math.PI) - angle;
+		}
+
+		angle = angle + (Math.PI / 2.0);
+		if (angle > (2.0 * Math.PI)) {
+			angle -= (2.0 * Math.PI);
+		}
+
+		return  MathUtils.rad2grad(angle);
+	}
+	
+	
+	public double getPowerFromPoint(Point p) {
+		Point center = getCenter();
+
+		double radius = Math.min(getWidth(), getHeight()) / 2.0;
+		double c = center.distance(p);
+
+		double power = (100.0 * c) / radius;
+		power = Math.min(100.0, power);
+		
+		return power;
+	}
+	
 
 	public Point getCenter() {
 		return new Point(getWidth()/2, getHeight()/2);

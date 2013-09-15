@@ -100,7 +100,7 @@ public class SerialInterface implements SerialPortEventListener {
 	 * This should be called when you stop using the port.
 	 * This will prevent port locking on platforms like Linux.
 	 */
-	public synchronized void close() {
+	public void close() {
 		if (serialPort != null) {
 			serialPort.removeEventListener();
 			serialPort.close();
