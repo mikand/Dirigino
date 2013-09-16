@@ -1,5 +1,10 @@
 ## Airship design
-* TODO: Define general structural design
+
+The general idea of the structure is to have a capsule, with rings
+supporting this structure. The rings will be made out of a light
+material (e.g., polystirol or lightweight wood).
+
+
 
 ## Equipment
 ### Controllers
@@ -14,14 +19,17 @@ sensors.
 
 ### Sensors
 * GPS
+* Compass
 * Tilt Sensor
 * Accelerometer (3-axis)
+* Gyroscope
 * Downwards Camera
 * Front Camera
-* (Optional) Temperature / Barometric Sensor
+* Temperature / Barometric Sensor
+* Low-Battery Sensor
 
 
-GPS is used to determine the position of the airship, including its
+GPS and Compass is used to determine the position of the airship, including its
 altitude, and provide navigational support.
 
 Tilt Sensor(s) are used to detect an abnormal position of the airship,
@@ -39,7 +47,7 @@ balance.
 
 
 ### Actuators
-* 2 Servos (180 deg)
+* 2 Servos (180 deg) 1 Kg/cm
 * 2 Engines
 
 The engines are fixed on the servos, providing rotation of the engines
@@ -51,3 +59,13 @@ speed etc.]].
 ### PSU
 * 9V - Arduino power-supply
 * Engine power-supply
+
+### Initial weight estimation
+Engines + Batteries + Arduino = 560gr
+
+### Short-term activities
+-> Design - Sketch
+-> Quadcopters engines => Collect info
+-> Sensors / SmartPhone => Proposals
+-> Materials (High-density polistirol / Balsa) - Specs and how to work
+
